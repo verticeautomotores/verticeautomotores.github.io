@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vértice Automotores - Concesionario de Autos</title>
+    <style>
+        /* Estilos base */
+        h2 {
+            color: rgb(255, 230, 0);
+        }
+        
+        iframe {
+            border-radius: 8px;
+            max-width: 100%;
+            height: auto;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.4;
+        }
+        
+        /* Header */
+        header {
+            position: relative;
+            width: 100%;
+            height: 250px; /* Reducido para móviles */
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        .header-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        
+        .header-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.5);
+            color: rgb(255, 230, 0);
+            padding: 0 15px;
+            box-sizing: border-box;
+        }
+        
+        .logo {
+            font-size: 2rem; /* Reducido para móviles */
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+        
+        .logo-subtitle {
+            font-size: 1rem; /* Reducido para móviles */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+            text-align: center;
+        }
+        
+        /* Navegación */
+        nav {
+            background-color: #333;
+            padding: 8px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-bottom: 4px solid #eeff00;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 5px 0;
+            padding: 8px 15px;
+            font-size: 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        nav a:hover {
+            background-color: #fbff00;
+            color: black;
+        }
+        
+        /* Contenido principal */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 15px; /* Reducido para móviles */
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 1.5rem; /* Reducido para móviles */
+            margin-bottom: 20px;
+        }
+        
+        /* Lista de autos */
+        .car-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .car-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow: hidden;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        
+        .car-card img {
+            width: 100%;
+            height: 250px; /* Reducido para móviles */
+            object-fit: cover;
+        }
+        
+        .car-info {
+            padding: 12px;
+        }
+        
+        .car-info h3 {
+            margin: 0 0 8px;
+            font-size: 1rem;
+        }
+        
+        .price {
+            font-size: 1.1rem;
+            color: #000000d3;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.4);
+            margin: 10px 0;
+        }
+        
+        /* Mapa */
+        .map-container {
+            width: 100%;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 250px; 
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a1a1a;
+            color: rgb(255, 230, 0);
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 20px;
+            border-top: 2px solid #eeff00;
+            font-size: 0.9rem;
+        }
+        
+        /* Enlaces */
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Botón de WhatsApp */
+        .whatsapp-button {
+            display: inline-block;
+            background-color: #25D366;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        
+        /* Media Queries para pantallas más grandes */
+        @media (min-width: 600px) {
+            header {
+                height: 350px;
+            }
+            
+            .logo {
+                font-size: 3rem;
+            }
+            
+            .logo-subtitle {
+                font-size: 1.3rem;
+            }
+            
+            nav {
+                flex-direction: row;
+                justify-content: center;
+            }
+            
+            nav a {
+                margin: 0 10px;
+            }
+            
+            .container {
+                padding: 0 30px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+        
+        @media (min-width: 900px) {
+            header {
+                height: 400px;
+            }
+            
+            .logo {
+                font-size: 4rem;
+            }
+            
+            .container {
+                padding: 0 50px;
+            }
+            
+            .car-list {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="header.jpg" alt="Mercedes Benz" class="header-image">
+        <div class="header-overlay">
+            <div class="logo">VÉRTICE AUTOMOTORES</div>
+            <div class="logo-subtitle">Donde cada conductor encuentra su vehículo perfecto</div>
+        </div>
+    </header>
+    
+    <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#autos">Autos</a>
+        <a href="https://wa.me/5493755501027?text=Hola%20Vértice%20Automotores,%20quisiera%20más%20información">Contacto</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfweNDg-Gm0U8apwxnMdt-bdTN4NMRb8Qohv8EGnFH7JAf0Ow/viewform?usp=header">Permutas-Cotizacion</a>
+    </nav>
+    
+    <div class="container" id="inicio">
+        <h1>Pasión por los autos, vendemos experiencias, no solo vehículos</h1>
+    </div>
+    
+    <div class="container" id="autos">
+        <h2>Vehículos en venta</h2>
+        <div class="car-list">
+            <div class="car-card">
+                <img src="Srx.jpg" alt="Toyota Hilux SRV 4X4" loading="lazy">
+                <div class="car-info">
+                    <h3>Toyota Hilux SRV 2013 4X4</h3>
+                    <p><strong>KM:</strong> 200... km</p>
+                    <p><strong>Motor:</strong> 3.0L</p>
+                    <p><strong>Transmisión:</strong> Automática</p>
+                    <p class="price">$25.000,000</p>
+                    <a href="https://wa.me/5493755501027?text=Hola%20Vértice%20Automotores,%20quisiera%20más%20información%20sobre%20el%20Toyota%20Hilux%20SRV%202013%204X4" class="whatsapp-button">Consultar por WhatsApp</a>
+                </div>
+            </div>
+            
+            <div class="car-card">
+                <img src="comun.jpg" alt="Toyota Hilux 4X4" loading="lazy">
+                <div class="car-info">
+                    <h3>Toyota Hilux 2007 4X4</h3>
+                    <p><strong>KM:</strong> 200.000</p>
+                    <p><strong>Motor:</strong> 2.8L</p>
+                    <p><strong>Transmisión:</strong> Manual</p>
+                    <p class="price">$18.000,000</p>
+                    <a href="https://wa.me/5493755501027?text=Hola%20Vértice%20Automotores,%20quisiera%20más%20información%20sobre%20Toyota%20Hilux%20%202007%204X4" class="whatsapp-button">Consultar por WhatsApp</a>
+                </div>
+            </div>
+            <div class="car-card">
+                <img src="s10.jpg" alt="Chevrolet S10 4X2" loading="lazy">
+                <div class="car-info">
+                    <h3>Chevrolet S10 2008 4X2</h3>
+                    <p><strong>Motor:</strong> 2.8L</p>
+                    <p><strong>Transmisión:</strong> Manual</p>
+                    <p class="price">$16.000,000</p>
+                    <a href="https://wa.me/5493755501027?text=Hola%20Vértice%20Automotores,%20quisiera%20más%20información%20sobre%20el%20Chevrolet%20S10%204X2" class="whatsapp-button">Consultar por WhatsApp</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container" id="contacto">
+        <h2>Contacto</h2>
+        <p>📞 Teléfono: +54 3751 15501027</p>
+        <p>📧 Email: verticeautomotores@gmail.com</p>
+        <p>📍 Ubicación</p>
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d221.20656575706144!2d-55.10080299191689!3d-27.490886869644005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sar!4v1751511699709!5m2!1ses!2sar" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> 
+        </div>
+        <p>
+            <a href="https://maps.app.goo.gl/hUBLUTBKjeFSgFw67" target="_blank">Ver en Google Maps</a>
+        </p>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 Lautaro Spengler. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
