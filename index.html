@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vértice Automotores - Concesionario de Autos</title>
-    <link rel="icon" href="/favicon-.png" type="image/png">
     <style>
         /* Estilos base */
         h2 {
-            color: rgb(255, 230, 0);
+            color: #eeff00;
+            text-shadow: 1px 1px 2px black;
         }
         
         iframe {
@@ -53,16 +53,17 @@
             justify-content: center;
             align-items: center;
             background: rgba(0, 0, 0, 0.5);
-            color: rgb(255, 230, 0);
+            color: #eeff00;
             padding: 0 15px;
             box-sizing: border-box;
+            text-shadow: 2px 2px 2px black;
         }
         
         .logo {
             font-size: 2rem; /* Reducido para móviles */
             font-weight: bold;
             margin-bottom: 5px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.8);
         }
         
         .logo-subtitle {
@@ -78,8 +79,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            border-bottom: 4px solid #eeff00;
-            border-top: 4px solid #eeff00;
+            border-bottom: 3px solid #eeff00;
+            border-top: 3px solid #eeff00;
         }
         
         nav a {
@@ -119,7 +120,7 @@
         }
         
         .car-card {
-            background: white;
+            background: rgb(255, 255, 255);
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             overflow: hidden;
@@ -193,6 +194,98 @@
             margin-top: 10px;
             font-weight: bold;
         }
+        .car-images {
+            position: relative;
+            height: 270px;
+            width: 100%;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .car-images img {
+            position:absolute;
+            max-width: 100%;
+            max-height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .car-images img.active {
+            opacity: 1;
+        }
+        .prev-btn, .next-btn {
+            position: absolute;
+            z-index: 20;
+            padding: 10px 15px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .prev-btn {
+            left: 15px;
+            bottom: 20px;
+        }
+        
+        .next-btn {
+            right: 15px;
+            bottom: 20px;
+        }
+        .ubicacion {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .ubicacion a {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #eeff00bd; /* Azul Google */
+            color: rgb(0, 0, 0);
+            text-decoration: none;
+            border-radius: 30px;
+            font-family: 'Roboto', Arial, sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 2px 2px 2px black;
+        }
+
+        .ubicacion a:hover {
+            background-color: #f0e110; /* Azul más oscuro al pasar mouse */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .ubicacion a:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+        }
+
+        /* Opcional: Icono de mapa */
+        .ubicacion a::before {
+            content: '';
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-right: 8px;
+            vertical-align: middle;
+            position: relative;
+            top: -1px;
+        }
         
         /* Media Queries para pantallas más grandes */
         @media (min-width: 600px) {
@@ -260,7 +353,6 @@
         <a href="https://wa.me/5493755501027?text=Hola%20Vértice%20Automotores,%20quisiera%20más%20información">Contacto</a>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSfweNDg-Gm0U8apwxnMdt-bdTN4NMRb8Qohv8EGnFH7JAf0Ow/viewform?usp=header">Permutas-Cotizacion</a>
     </nav>
-    
     <div class="container" id="inicio">
         <h1>Pasión por los autos, vendemos experiencias, no solo vehículos</h1>
     </div>
@@ -269,66 +361,143 @@
         <h2>Vehículos en venta</h2>
         <div class="car-list">
             <div class="car-card">
-                <img src="Srx.jpg" alt="Toyota Hilux SRV 4X4" loading="lazy">
+                <div class="car-images">
+                    <img src="Srx.jpg" alt="Toyota Hilux SRV 4X4 2009" class="active">
+                    <img src="HiluxCostado.jpg" alt="Toyota Hilux SRV 4X4 2009">
+                    <button class="prev-btn">‹</button>
+                    <button class="next-btn">›</button>
+                </div>
                 <div class="car-info">
-                    <h3>Toyota Hilux SRV 2013 4X4</h3>
-                    <p><strong>KM:</strong> 200.XXX</p>
+                    <h3>Toyota Hilux SRV 2009 4X4</h3>
+                    <p><strong>KM:</strong> 260.XXX km</p>
                     <p><strong>Motor:</strong> 3.0L</p>
                     <p><strong>Transmisión:</strong> Automática</p>
                     <p class="price">$25.000,000</p>
-                    <a href="https://wa.me/5493755501027?text=Hola%20Vértice%20Automotores,%20quisiera%20más%20información%20sobre%20Toyota%20Hilux%20SRV%202013%204X4" class="whatsapp-button">Consultar por WhatsApp</a>
+                    <a href="https://wa.me/5493755501027?text=Hola%20Vértice%20Automotores,%20quisiera%20más%20información%20sobre%20Toyota%20Hilux%20SRV%202009%204X4" class="whatsapp-button">Consultar por WhatsApp</a>
                 </div>
             </div>
-            
             <div class="car-card">
-                <img src="comun.jpg" alt="Toyota Hilux 4X4" loading="lazy">
+                <div class="car-images">
+                    <img src="comun.jpg" alt="Toyota Hilux 2007 4X4" class="active">
+                    <button class="prev-btn">‹</button>
+                    <button class="next-btn">›</button>
+                </div>
                 <div class="car-info">
                     <h3>Toyota Hilux 2007 4X4</h3>
-                    <p><strong>KM:</strong> 200.XXX</p>
+                    <p><strong>KM:</strong> 200.XXX km</p>
                     <p><strong>Motor:</strong> 2.8L</p>
                     <p><strong>Transmisión:</strong> Manual</p>
                     <p class="price">$18.000,000</p>
-                    <a href="https://wa.me/5493755501027?text=Hola%20Vértice%20Automotores,%20quisiera%20más%20información%20sobre%20Toyota%20Hilux%20%202007%204X4" class="whatsapp-button">Consultar por WhatsApp</a>
+                    <a href="https://wa.me/5493755501027?text=Hola%20Vértice%20Automotores,%20quisiera%20más%20información%20sobre%20el%20Toyota%20Hilux%202007%204X4" class="whatsapp-button">Consultar por WhatsApp</a>
                 </div>
             </div>
             <div class="car-card">
-                <img src="s10.jpg" alt="Chevrolet S10 4X2" loading="lazy">
+                <div class="car-images">
+                    <img src="s10.jpg" alt="Chevrolet S10 2008" class="active">
+                    <img src="S10interior" alt="Chevrolet S10 2008">
+                    <img src="s10costado" alt="Chevrolet S10 2008">
+                    <button class="prev-btn">‹</button>
+                    <button class="next-btn">›</button>
+                </div>
                 <div class="car-info">
                     <h3>Chevrolet S10 2008 4X2</h3>
-                    <p><strong>Motor:</strong> 2.8L</p>
+                    <p><strong>KM:</strong> 200.XXX km</p>
+                    <p><strong>Motor:</strong>2.8L</p>
                     <p><strong>Transmisión:</strong> Manual</p>
                     <p class="price">$16.000,000</p>
-                    <a href="https://wa.me/5493755501027?text=Hola%20Vértice%20Automotores,%20quisiera%20más%20información%20sobre%20la%20Chevrolet%20S10%204X2" class="whatsapp-button">Consultar por WhatsApp</a>
+                    <a href="https://wa.me/5493755501027?text=Hola%20Vértice%20Automotores,%20quisiera%20más%20información%20sobre%20la%20Chevrolet%20S10%202008" class="whatsapp-button">Consultar por WhatsApp</a>
                 </div>
             </div>
             <div class="car-card">
-                <img src="Clio.jpg" alt="Renault Clio 2014" loading="lazy">
+                <div class="car-images">
+                    <img src="Clio.jpg" alt="Clio 2014 " class="active">
+                    <img src="Cliocostado" alt="Clio 2014 ">
+                    <button class="prev-btn">‹</button>
+                    <button class="next-btn">›</button>
+                </div>
                 <div class="car-info">
                     <h3>Renault Clio 2014</h3>
-                    <p><strong>Motor:</strong> 1.2L</p>
+                    <p><strong>Motor:</strong>1.2L</p>
                     <p><strong>Transmisión:</strong> Manual</p>
                     <p class="price">$11.500,000</p>
-                    <a href="https://wa.me/5493755501027?text=Hola%20Vértice%20Automotores,%20quisiera%20más%20información%20sobre%20el%20Clio%202014" class="whatsapp-button">Consultar por WhatsApp</a>
+                    <a href="https://wa.me/5493755501027?text=Hola%20Vértice%20Automotores,%20quisiera%20más%20información%20sobre%20el%20Renault%20Clio%202014" class="whatsapp-button">Consultar por WhatsApp</a>
                 </div>
             </div>
+            
         </div>
     </div>
     
     <div class="container" id="contacto">
         <h2>Contacto</h2>
         <p>📞 Teléfono: +54 3755 501027</p>
-        <p>📧 Email: <a href="mailto:verticeautomotores@gmail.com" target="_blank">verticeautomotores@gmail.com</a></p>
+        <p>📧 Email: <a href="mailto:verticeautomotores@gmail.com" target="_blank">verticeautomotores@gmail.com</a></p><!--Se abre en otra pestaña _blank-->
         <p>📍 Ubicación</p>
         <div class="map-container">
             <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d221.20656575706144!2d-55.10080299191689!3d-27.490886869644005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sar!4v1751511699709!5m2!1ses!2sar" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> 
         </div>
         <p>
-            <a href="https://maps.app.goo.gl/hUBLUTBKjeFSgFw67" target="_blank">Ver en Google Maps</a>
+            <div class="ubicacion">
+                <a href="https://maps.app.goo.gl/hUBLUTBKjeFSgFw67" target="_blank">Ver Ubicacion</a>
+            </div>
         </p>
     </div>
     
     <footer>
         <p>&copy; 2025 Lautaro Spengler. Todos los derechos reservados.</p>
     </footer>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Seleccionar todas las tarjetas de auto
+            const carCards = document.querySelectorAll('.car-card');
+            
+            // Inicializar cada carrusel
+            carCards.forEach(card => {
+                const carImagesContainer = card.querySelector('.car-images');
+                const images = carImagesContainer.querySelectorAll('img');
+                const prevBtn = carImagesContainer.querySelector('.prev-btn');
+                const nextBtn = carImagesContainer.querySelector('.next-btn');
+                
+                let currentIndex = 0;
+                
+                // Función para mostrar una imagen específica
+                function showImage(index) {
+                    // Asegurarse que el índice esté dentro del rango
+                    if (index < 0) index = images.length - 1;
+                    if (index >= images.length) index = 0;
+                    
+                    // Ocultar todas las imágenes
+                    images.forEach(img => img.classList.remove('active'));
+                    
+                    // Mostrar la imagen actual
+                    images[index].classList.add('active');
+                    currentIndex = index;
+                    
+                    // Ocultar botones si solo hay una imagen
+                    if (images.length <= 1) {
+                        prevBtn.style.display = 'none';
+                        nextBtn.style.display = 'none';
+                    } else {
+                        prevBtn.style.display = 'block';
+                        nextBtn.style.display = 'block';
+                    }
+                }
+                
+                // Evento para botón anterior
+                prevBtn.addEventListener('click', function() {
+                    showImage(currentIndex - 1);
+                });
+                
+                // Evento para botón siguiente
+                nextBtn.addEventListener('click', function() {
+                    showImage(currentIndex + 1);
+                });
+                
+                // Mostrar la primera imagen al cargar
+                showImage(0);
+            });
+        });
+    </script>
+</body>
+</html>
 </body>
 </html>
